@@ -18,7 +18,7 @@ class Card:
             "J": 10,
             "Q": 10,
             "K": 10,
-            "A": [1, 11],
+            "A": 11,  # TODO: include logic for Aces as 1 or 11
         }
         self.value = self.value_map[self.rank]
 
@@ -74,7 +74,7 @@ class Deck:
 
 
 class Shoe(Deck):
-    def __init__(self, decks=int):
+    def __init__(self, decks: int = 6):
         super().__init__()
         self.decks = decks
         self.cards = Deck() * self.decks
