@@ -1,11 +1,14 @@
-from deck import Deck
-from player import Player, Dealer
+from dataclasses import dataclass
+
+from cards import Shoe
+from participants import Dealer, Player
 
 
-class Blackjack:
-    def __init__(self, deck: Deck):  #, players: int):
-        self.deck = deck
-        # self.players = players  # TODO: add logic for multiple players
+@dataclass
+class Game:
+    shoe: Shoe
+    dealer: Dealer
+    players: list[Player]
 
     def play_a_hand(self):
         print("New hand commencing!")

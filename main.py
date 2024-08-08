@@ -1,7 +1,10 @@
-from blackjack import Blackjack
-from deck import Shoe
+from blackjack.cards import Shoe
+from blackjack.game import Game
+from blackjack.participants import Dealer, Player
 
 if __name__ == "__main__":
-    deck = Shoe()
-    blackjack = Blackjack(deck=deck)
-    blackjack.play_a_hand()
+    game = Game(
+        shoe=Shoe(),
+        dealer=Dealer(),
+        players=[Player(id_num=x) for x in range(3)],
+    )
