@@ -1,27 +1,8 @@
 from abc import ABC
-from dataclasses import dataclass, field
 
-from blackjack.cards import Card, Deck
-
-
-@dataclass
-class Hand:
-    """Hand class for a collection of cards.
-
-    Attributes
-    ----------
-    cards : list[Card]
-        Collection of cards.
-
-    """
-
-    cards: list[Card] = field(default_factory=list)
-
-    def value(self):
-        return sum(self.cards)
+from blackjack.hand import Hand
 
 
-@dataclass
 class Participant(ABC):
     """Participant base class for someone playing Blackjack.
 
@@ -34,20 +15,19 @@ class Participant(ABC):
 
     """
 
-    id_num: int
-    hands: list[Hand] = field(default_factory=list)  # TODO: hands class for splitting
-    # TODO: maybe a strategy class that determines when to draw/stand/split/etc.
-
-    def draw(self, hand: Hand, deck: Deck):
-        hand.cards.append(deck.cards.pop())
+    def __init__(self, id_num: int):
+        self.id_num = id_num
 
     def stand(self):
         pass
 
 
-@dataclass
 class Player(Participant):
     """Player class for someone playing Blackjack."""
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.hands = [Hand()]
 
     def __str__(self):
         return f"Player {self.id_num}"
@@ -62,11 +42,12 @@ class Player(Participant):
         pass
 
 
-@dataclass
 class Dealer(Participant):
     """Class for the Blackjack dealer."""
 
-    id_num: int = 1
+    def __init__(self):
+        super().__init__(id_num=1)
+        self.hand = Hand()
 
     def __str__(self):
         return "Dealer"
