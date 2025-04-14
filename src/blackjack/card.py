@@ -21,7 +21,7 @@ class Card:
         self.suit = suit
 
     def __str__(self):
-        return f"{self.rank} of {self.suit}"
+        return f"{self.rank} of {self.suit}s"
 
     def __repr__(self):
         return f"{repr(self.rank)}{repr(self.suit)}"
@@ -62,7 +62,7 @@ class Card:
 
     def convert(self):
         if isinstance(self.rank, AceLowRank):
-            self.rank = AceHighRank
+            self.rank = AceHighRank()
         elif isinstance(self.rank, AceHighRank):
-            self.rank = AceLowRank
+            self.rank = AceLowRank()
         return self

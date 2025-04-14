@@ -1,6 +1,6 @@
 from abc import ABC
 
-from blackjack.hand import Hand
+from blackjack.hand import Hands
 
 
 class Participant(ABC):
@@ -17,6 +17,10 @@ class Participant(ABC):
 
     def __init__(self, id_num: int):
         self.id_num = id_num
+        self.hands = Hands()
+
+    def log_cards(self, **kwargs):
+        self.hands.log_cards(player_meta=str(self), **kwargs)
 
     def stand(self):
         pass
@@ -27,7 +31,6 @@ class Player(Participant):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.hands = [Hand()]
 
     def __str__(self):
         return f"Player {self.id_num}"
@@ -47,7 +50,6 @@ class Dealer(Participant):
 
     def __init__(self):
         super().__init__(id_num=1)
-        self.hand = Hand()
 
     def __str__(self):
         return "Dealer"
